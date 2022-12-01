@@ -1,0 +1,32 @@
+.History {
+    padding: 2vw;
+    padding-left: 10vw;
+}
+
+.history__list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+
+.history__item .col {
+    font-size: 2vw;
+}
+
+.history__item {
+    cursor: pointer;
+}
+
+.history__item:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.back_btn {
+    bottom: unset;
+    left: 1vw;
+    top: 1vw;
+    width: 5vw;
+    height: 5vw;
+    background-image: url(/src/assets/icons/arrow-back.png);
+}
