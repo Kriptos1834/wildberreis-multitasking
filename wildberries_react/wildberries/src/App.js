@@ -14,7 +14,7 @@ function App() {
 	const [wsMessage, setWsMessage] = useState(null)
 	const [playNotification] = useSound(sound)
 
-	useWebSocket('ws://127.0.0.1:8000/ws/office',
+	useWebSocket(`ws://${window.location.host}/ws/office`,
 		(e) => {
 			setWsMessage(JSON.parse(e.data))
 		})

@@ -25,7 +25,10 @@ SECRET_KEY = 'a&q+c@&$jnkg(e)qnc21a$2pf$&72)!81qw75)5-=0h%47kw8h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+if DEBUG: 
+    ALLOWED_HOSTS = ['*']
+else:
+    ALLOWED_HOSTS = ['31.172.66.171']
 
 
 # Application definition
@@ -136,7 +139,8 @@ CHANNEL_LAYERS = {
 }
 
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = []
 STATICFILES_DIRS.append(os.path.join(BASE_DIR, '../wildberries_react/wildberries/build/static'))
