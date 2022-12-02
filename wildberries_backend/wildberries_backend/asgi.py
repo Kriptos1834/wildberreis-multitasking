@@ -12,7 +12,7 @@ django_asgi_app = get_asgi_application()
 import wsserver.routing
 
 application = ProtocolTypeRouter(
-    {
+    {   
         'http': django_asgi_app,
         'websocket': AllowedHostsOriginValidator(
             AuthMiddlewareStack(URLRouter(wsserver.routing.websocket_urlpatterns))
