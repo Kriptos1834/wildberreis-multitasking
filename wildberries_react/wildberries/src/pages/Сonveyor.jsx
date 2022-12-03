@@ -4,6 +4,7 @@ import DetailsPopup from "../components/DetailsPopup";
 import OrderLIst from "../components/OrderLIst";
 import { OrdersContext } from "../context";
 
+import '../styles/conveyor.css'
 
 function Conveyor() {
 

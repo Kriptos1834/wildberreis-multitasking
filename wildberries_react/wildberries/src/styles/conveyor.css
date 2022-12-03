@@ -1,0 +1,159 @@
+.qty {
+    font-weight: bold;
+    font-size: 115%;
+    padding-left: 10px;
+}
+
+.order__list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1vh;
+    min-height: 99vh;
+    overflow-x: hidden;
+    overflow-y: visible;
+}
+
+.order__item {
+    width: 100%;
+    box-shadow: 0 0 7px rgb(80, 80, 80);
+    border-radius: 2vw;
+    max-width: 60%;
+    margin-bottom: 1vw;
+    padding: 1.5vw;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: .2s ease;
+}
+
+.order__info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.order_cell {
+    font-size: 6vw;
+}
+
+
+.items_qty {
+    font-size: 2.5vw;
+    margin-left: 2vw;
+
+}
+
+@keyframes current_order {
+    0% {
+        flex-direction: row;
+        max-width: 60%;
+        background: none;
+    }
+
+    50% {
+        flex-direction: row;
+        max-width: 60%;
+        background: #fff;
+        height: 6vw
+    }
+
+    100% {
+        flex-direction: column;
+        background-color: rgb(139, 233, 121);
+        max-width: 93%;
+        height: calc(4vw * 1.15 + 17vw)
+    }
+}
+
+.order__item.current {
+    background-color: rgb(139, 233, 121);
+    max-width: 93%;
+    animation: 0.7s ease-out current_order;
+}
+
+@keyframes text_wrap {
+    from {
+        flex-direction: row;
+    }
+
+    to {
+        flex-direction: column;
+    }
+}
+
+.order__item.current .order__info {
+    animation: 1.3s ease-out text_wrap;
+    animation-timing-function: steps(12, end);
+    flex-direction: column;
+}
+
+@keyframes current_order_cell {
+    0% {
+        font-size: 6vw;
+    }
+
+    50% {
+        font-size: 6vw;
+    }
+
+    100% {
+        font-size: 17vw;
+    }
+}
+
+@keyframes current_order_qty {
+    0% {
+        max-width: 60%;
+        background: none;
+        margin-left: 2vw;
+    }
+
+    50% {
+        max-width: 60%;
+        background: none;
+        margin-left: 2vw;
+    }
+
+    100% {
+        font-size: 4vw;
+        margin-left: 0;
+    }
+}
+
+.order__item.current .order_cell {
+    transition: .3s ease;
+    font-size: 17vw;
+    animation: 0.7s ease-out current_order_cell
+}
+
+.order__item.popup_format .order_cell {
+    margin-right: 80%;
+    font-size: 10vw;
+}
+
+.order__item.current .items_qty {
+    font-size: 4vw;
+    margin-left: 0;
+    animation: 0.7s ease-out current_order_qty
+}
+
+.history_btn {
+    left: 1.5vw;
+    bottom: 1.5vw;
+    background-image: url(/src/assets/icons/checklist.png);
+}
+
+.no_orders {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 8vw;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: rgba(20, 84, 136, 0.49);
+}
