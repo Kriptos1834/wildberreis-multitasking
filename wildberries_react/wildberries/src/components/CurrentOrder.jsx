@@ -3,7 +3,8 @@ import { useSwipeToDismiss } from 'react-swipe-to-dismiss';
 
 const CurrentOrder = React.forwardRef((props, ref) => {
     const siwpeRef = useRef()
-    useSwipeToDismiss(siwpeRef, props.onDismis, false, 20, 'right')
+
+    useSwipeToDismiss(siwpeRef, props.onDismis, false, 11, 'right')
 
     return (
 
