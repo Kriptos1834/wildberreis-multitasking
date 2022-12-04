@@ -29,15 +29,13 @@ const OrderLIst = ({ orders, setOrders, setOrderDetails, setIsPopupVisible, ...p
     }
 
     return (
-        // <div>
-        // {/* <button onClick={onSwipe}>REMOVE</button> */ }
-        <FlipMove className="order__list" leaveAnimation='none' >
+        <FlipMove className="order__list" leaveAnimation='none'>
             {
                 orders.map(order =>
                     orders.indexOf(order) === 0
                         ? <CurrentOrder
                             order={order}
-                            onDismis={onSwipe}
+                            onDismiss={onSwipe}
                             displayPopup={displayPopup}
                             key={order.cell}
                         />
@@ -45,7 +43,6 @@ const OrderLIst = ({ orders, setOrders, setOrderDetails, setIsPopupVisible, ...p
                 )
             }
         </FlipMove >
-        // </div>
     );
 }
 

@@ -1,17 +1,28 @@
-import React, { useRef } from 'react'
-import { useSwipeToDismiss } from 'react-swipe-to-dismiss';
+import React from 'react'
+import { useSpring, animated } from '@react-spring/web'
+import { useDrag } from '@use-gesture/react'
 
 const CurrentOrder = React.forwardRef((props, ref) => {
-    const siwpeRef = useRef()
+    const [{ x }, api] = useSpring(() => ({ x: 0 }))
 
-    useSwipeToDismiss(siwpeRef, props.onDismis, false, 11, 'right')
+    const bind = useDrag(({ active, movement: [mx], cancel }) => {
+        const triggerOffset = 200
+        const durationMs = 200
+        if (mx > triggerOffset) {
+            cancel()
+            setTimeout(props.onDismiss, durationMs)
+            api.start({ from: { x: mx }, to: { x: 2000 }, config: { duration: durationMs } })
+        } else {
+            api.start({ x: active ? mx : 0, immediate: active })
+        }
+    }, { bounds: { left: 0 } })
 
     return (
-
-        <div className="flipMove_wrapper" ref={ref}>
-            <div
+        <div ref={ref} className="flipMove_wrapper">
+            <animated.div
+                {...bind()}
+                style={{ x, touchAction: 'pan-y' }}
                 className={"order__item current"}
-                ref={siwpeRef}
                 onClick={() => {
                     props.displayPopup(props.order.cell)
                 }}
@@ -25,7 +36,7 @@ const CurrentOrder = React.forwardRef((props, ref) => {
                         <strong className='qty'>{props.order.items.length}</strong>
                     </p>
                 </div>
-            </div>
+            </animated.div>
         </div>
     )
 })

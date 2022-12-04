@@ -10,7 +10,63 @@ import sound from './assets/audio/correct-answer.wav'
 
 function App() {
 	const [orderHistory, setOrderHistory] = useState([])
-	const [orders, setOrders] = useState([])
+	const [orders, setOrders] = useState([
+		{
+			cell: 222,
+			items: [
+				{
+					name: 'test',
+					shkId: 123,
+					stickerId: 123,
+					imgUrls: ['123']
+				}
+			]
+		},
+		{
+			cell: 22,
+			items: [
+				{
+					name: 'test',
+					shkId: 123,
+					stickerId: 123,
+					imgUrls: ['123']
+				}
+			]
+		},
+		{
+			cell: 122,
+			items: [
+				{
+					name: 'test',
+					shkId: 123,
+					stickerId: 123,
+					imgUrls: ['123']
+				}
+			]
+		},
+		{
+			cell: 221,
+			items: [
+				{
+					name: 'test',
+					shkId: 123,
+					stickerId: 123,
+					imgUrls: ['123']
+				}
+			]
+		},
+		{
+			cell: 322,
+			items: [
+				{
+					name: 'test',
+					shkId: 123,
+					stickerId: 123,
+					imgUrls: ['123']
+				}
+			]
+		},
+	])
 	const [wsMessage, setWsMessage] = useState(null)
 	const [playNotification] = useSound(sound)
 

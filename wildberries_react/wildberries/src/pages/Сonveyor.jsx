@@ -52,7 +52,6 @@ function Conveyor() {
             <button className='history_btn btn' onClick={() => {
                 navigate('/history')
             }}>
-
             </button>
         </div >
     );
