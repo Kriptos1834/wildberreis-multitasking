@@ -26,10 +26,10 @@ SECRET_KEY = 'a&q+c@&$jnkg(e)qnc21a$2pf$&72)!81qw75)5-=0h%47kw8h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-if DEBUG: 
+if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
-    ALLOWED_HOSTS = ['31.172.66.171']
+    ALLOWED_HOSTS = ['31.172.66.171', 'mkh-wb.ru', 'www.mkh-wb.ru']
 
 
 # Application definition
