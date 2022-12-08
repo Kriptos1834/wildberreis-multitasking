@@ -41,7 +41,7 @@ const History = () => {
                     >
                         <div className="col"><span>{order.cell}</span></div>
                         <div className="col"><span>{order.items.length}</span></div>
-                        <div className="col"><span>{order.issuing_time}</span></div>
+                        <div className="col"><span>{new Date(order.issuing_time).toLocaleTimeString().split(':').slice(0, -1).join(':')}</span></div>
                     </div>
                 )}
             </div>

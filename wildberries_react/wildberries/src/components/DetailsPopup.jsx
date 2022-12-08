@@ -13,7 +13,7 @@ function DetailsPopup({ isVisible, close, items, ...props }) {
                     </div>
                     <div className="table_body">
                         {items.map(item =>
-                            <div key={item.barcode} className="row">
+                            <div key={item.shk_id || item.sticker_id} className="row">
                                 <div className="col">
                                     <span>
                                         {item.name}

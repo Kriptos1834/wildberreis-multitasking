@@ -23,7 +23,7 @@ const OrderLIst = ({ orders, setOrders, setOrderDetails, setIsPopupVisible, ...p
     const onSwipe = () => {
         setOrderHistory([{
             ...orders[0],
-            issuing_time: `${new Date().toLocaleTimeString().split(':').slice(0, -1).join(':')}`
+            issuing_time: new Date().getTime(),
         }, ...orderHistory,])
         setOrders(orders.slice(1))
     }

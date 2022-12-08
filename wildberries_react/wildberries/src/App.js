@@ -14,7 +14,7 @@ function App() {
 	const [wsMessage, setWsMessage] = useState(null)
 	const [playNotification] = useSound(sound)
 
-	useWebSocket(`${window.location.protocol.includes('https') ? 'wss' : 'ws'}://${window.location.host}/ws/office`,
+	useWebSocket(`${window.location.protocol.includes('https') ? 'wss' : 'ws'}://${window.location.hostname}:8000/ws/office`,
 		(e) => {
 			setWsMessage(JSON.parse(e.data))
 		})
@@ -22,11 +22,17 @@ function App() {
 	useEffect(() => {
 		if (wsMessage) {
 			const newOrder = wsMessage.data
-			if (!orders.filter(order => order.cell === newOrder.cell).length) {
-				console.log('playing')
-				playNotification()
-				setOrders([...orders, newOrder])
-			}
+			if (orders.filter(order => order.cell === newOrder.cell).length)
+				return
+
+			if (orderHistory.filter(order => (order.cell === newOrder.cell) && (new Date(order.issuing_time) - new Date <= 60 * 60 * 1000)).length)
+				return
+
+			// if (!orders.filter(order => order.cell === newOrder.cell).length) {
+			// 	console.log('playing')
+			playNotification()
+			setOrders([...orders, newOrder])
+			// } else if (orderHistory.filter())
 		}
 	}, [wsMessage])
 

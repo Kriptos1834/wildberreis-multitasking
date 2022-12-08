@@ -12,7 +12,7 @@ class OfficeConsumer(AsyncWebsocketConsumer):
 
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(self.office_group_name, self.channel_name)
-    
+
     async def receive(self, text_data):
         text_data = json.loads(text_data)
         user_data = text_data['userData']
