@@ -22,6 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'a&q+c@&$jnkg(e)qnc21a$2pf$&72)!81qw75)5-=0h%47kw8h'
+POSTGRES_PASSWORD = '15893587max'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -84,8 +85,12 @@ WSGI_APPLICATION = 'wildberries_backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'production',
+        'USER': 'postgres',
+        'PASSWORD': POSTGRES_PASSWORD,
+        'HOST': '31.172.66.171',
+        'PORT': 5432
     }
 }
 
