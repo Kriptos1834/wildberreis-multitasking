@@ -38,6 +38,7 @@ else:
 INSTALLED_APPS = [
     'daphne',
     'wsserver',
+    'orders_conveyor',
     'api',
     'django.contrib.admin',
     'django.contrib.auth',
