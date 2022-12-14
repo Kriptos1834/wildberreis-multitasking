@@ -3,3 +3,4 @@ wildberries_backend/.env
 wildberries_react/wildberries/node_modules
 */__pycache__
 requirements.txt
+volumes
