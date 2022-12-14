@@ -9,7 +9,6 @@ import useSound from 'use-sound'
 import sound from './assets/audio/correct-answer.wav'
 import { useFetching } from "./hooks/useFetching";
 import OrderService from "./api/OrderService";
-import parseOrder from './utils/orders'
 
 function App() {
 	const [orderHistory, setOrderHistory] = useState([])
@@ -19,30 +18,27 @@ function App() {
 
 	const [fetchOrdersQueue, isQueueLodaing, queueError] = useFetching(async () => {
 		const response = await OrderService.getQueue()
-		const queue = response.data //.map(order_data => parseOrder(order_data))
-		setOrders(queue)
+		setOrders(response.data)
 		if (queueError)
 			console.error(queueError)
 	})
 
 	const [fetchOrdersHistory, isHistoryLoading, historyError] = useFetching(async () => {
 		const response = await OrderService.getHistory()
-		const history = response.data //.map(order_data => parseOrder(order_data))
-		setOrderHistory(history)
-		console.log(history)
+		setOrderHistory(response.data)
 		if (historyError)
 			console.error(historyError)
 	})
 
 
 
-	useEffect(() => { 
+	useEffect(() => {
 		fetchOrdersQueue()
 		fetchOrdersHistory()
 	}, [])
 
 	useWebSocket(`${window.location.protocol.includes('https') ? 'wss' : 'ws'}://${window.location.host}/ws/office`,
-	// useWebSocket(`ws://localhost:8000/ws/office`,
+		// useWebSocket(`ws://localhost:8000/ws/office`,
 		(e) => {
 			setWsMessage(JSON.parse(e.data))
 		})
@@ -50,11 +46,8 @@ function App() {
 
 	useEffect(() => {
 		if (wsMessage) {
-			const newOrder = parseOrder(wsMessage.data)
-
 			playNotification()
-			setOrders([...orders, newOrder])
-
+			setOrders([...orders, wsMessage.data])
 		}
 	}, [wsMessage])
 
