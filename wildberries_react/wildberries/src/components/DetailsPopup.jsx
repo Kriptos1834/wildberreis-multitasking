@@ -13,7 +13,7 @@ function DetailsPopup({ isVisible, close, items, ...props }) {
                     </div>
                     <div className="table_body">
                         {items.map(item =>
-                            <div key={item.shk_id || item.sticker_id} className="row">
+                            <div key={item.shkId || item.stickerId} className="row">
                                 <div className="col">
                                     <span>
                                         {item.name}
@@ -21,13 +21,13 @@ function DetailsPopup({ isVisible, close, items, ...props }) {
                                 </div>
                                 <div className="col">
                                     <span>
-                                        {item.shk_id}
+                                        {item.shkId}
                                         <br />
-                                        {item.sticker_id}
+                                        {item.stickerId}
                                     </span>
                                 </div>
                                 <div className="col">
-                                    <img src={item.image_urls[0]} alt="" />
+                                    <img src={item.imgUrls[0]} alt="" />
                                 </div>
                             </div>
                         )}

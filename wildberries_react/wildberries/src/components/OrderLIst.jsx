@@ -4,9 +4,16 @@ import CurrentOrder from './CurrentOrder';
 import Order from './Order';
 import { useContext } from 'react';
 import { OrdersContext } from '../context';
+import { useFetching } from '../hooks/useFetching';
+import OrderService from '../api/OrderService';
 
 const OrderLIst = ({ orders, setOrders, setOrderDetails, setIsPopupVisible, ...props }) => {
     const { orderHistory, setOrderHistory } = useContext(OrdersContext)
+    const [fetchOrderIssue, isIssueLoading, issuingError] = useFetching(async (orderId) => {
+        const respose = await OrderService.issue(orderId)
+        if (issuingError)
+            console.error(issuingError)
+    })
 
     const displayPopup = (orderCell) => {
         window.scrollTo({
@@ -20,12 +27,11 @@ const OrderLIst = ({ orders, setOrders, setOrderDetails, setIsPopupVisible, ...p
         document.body.classList.add('blocked')
     }
 
-    const onSwipe = () => {
-        setOrderHistory([{
-            ...orders[0],
-            issuing_time: new Date().getTime(),
-        }, ...orderHistory,])
+    const onSwipe = (orderId) => {
+        setOrderHistory([orders[0], ...orderHistory,])
         setOrders(orders.slice(1))
+        fetchOrderIssue(orderId)
+        console.log('ON SWIPE TRIGGERED')
     }
 
     return (
@@ -35,11 +41,11 @@ const OrderLIst = ({ orders, setOrders, setOrderDetails, setIsPopupVisible, ...p
                     orders.indexOf(order) === 0
                         ? <CurrentOrder
                             order={order}
-                            onDismiss={onSwipe}
+                            onSwipe={onSwipe}
                             displayPopup={displayPopup}
-                            key={order.cell}
+                            key={order.id}
                         />
-                        : <Order order={order} key={order.cell} />
+                        : <Order order={order} key={order.id} />
                 )
             }
         </FlipMove >

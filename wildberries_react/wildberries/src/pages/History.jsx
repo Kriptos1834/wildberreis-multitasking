@@ -32,7 +32,7 @@ const History = () => {
                     <div className="col">Время выдачи</div>
                 </div>
                 {orderHistory.map(order =>
-                    <div className='history__item row' key={order.cell}
+                    <div className='history__item row' key={order.id}
                         onClick={() => {
                             setOrderDetails(order.cell)
                             setIsPopupVisible(true)
