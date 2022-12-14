@@ -1,6 +1,7 @@
 wildberries_chrome_extension
 wildberries_backend/.env
 wildberries_react/wildberries/node_modules
-*/__pycache__
+*/__pycache__/
+__pycache__/
 requirements.txt
 volumes
