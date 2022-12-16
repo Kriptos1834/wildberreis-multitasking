@@ -1,8 +1,16 @@
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-
+from django.conf import settings
 from orders_conveyor.models import Order
 from datetime import timedelta
+
+import importlib.util
+import os
+
+
+spec = importlib.util.spec_from_file_location('logging', os.path.join(settings.BASE_DIR, 'cron', 'scripts', 'utils', 'logging.py'))
+sutils = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(sutils)
 
 
 class Command(BaseCommand):
@@ -12,11 +20,11 @@ class Command(BaseCommand):
         date = timezone.localtime(timezone.now()) - timedelta(days=2)
         outdated_orders = Order.objects.filter(created_at__lte=date)
         
-        print(f'[+] Found {outdated_orders.count()} outdated orders.')
+        sutils.cout(f'[+] Found {outdated_orders.count()} outdated orders.', __file__)
         
         if outdated_orders:
-            print('[+] Deleting.')
+            sutils.cout('[+] Deleting.', __file__)
         
             outdated_orders.delete()
         
-            print('[+] Outdated orders has been successfully deleted.')
+            sutils.cout('[+] Outdated orders has been successfully deleted.', __file__)
