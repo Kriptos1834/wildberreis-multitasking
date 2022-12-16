@@ -57,7 +57,7 @@ function Conveyor() {
             }}>
             </button>
             <button className='clear_btn btn' onClick={() => {
-                // clearQueue()
+                clearQueue()
                 ordersContext.setOrders([])
             }}>
             </button>
