@@ -1,2 +1,0 @@
-0 23 * * * /home/mkholkin/code/wildberreis-multitasking/wildberries_backend/.env/bin/python /home/mkholkin/code/wildberreis-multitasking/wildberries_backend/cron/scripts/aggregate.py
-1 23 * * * /home/mkholkin/code/wildberreis-multitasking/wildberries_backend/.env/bin/python /home/mkholkin/code/wildberreis-multitasking/wildberries_backend/manage.py remove_outdated_orders | adddate >> /home/mkholkin/code/wildberreis-multitasking/cron.log
