@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view, parser_classes
 from .serializers import OrderSerializer
 from rest_framework.parsers import JSONParser, MultiPartParser
 from django.utils import timezone
+from datetime import datetime
 
 
 @api_view(['GET'])
@@ -52,7 +53,17 @@ def issue_order(request, *args, **kwargs):
             issuing_time=timezone.localtime(timezone.now())
         )
 
-    return Response({'ok': True}, status=status.HTTP_200_OK)
+        return Response({'ok': True}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET', 'OPTIONS'])
+def clear_queue(request, *args, **kwargs):
+    ''' Set timestamp of utc begin for all order in queue '''
+    if request.method == 'GET':
+        Order.objects.filter(id__in=QueueOrder.objects.all().values_list('id', flat=True)).update(
+            issuing_time=datetime.utcfromtimestamp(0)
+        )
+        return Response({'ok': True}, status=status.HTTP_200_OK)
 
 
 class OrderQueue(generics.ListAPIView):

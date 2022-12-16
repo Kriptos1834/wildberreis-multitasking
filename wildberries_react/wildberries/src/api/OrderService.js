@@ -22,4 +22,9 @@ export default class OrderService {
         })
         return response
     }
+
+    static async clear() {
+        const response = await axios.get(origin + '/api/orders/clear_queue')
+        return response
+    }
 }

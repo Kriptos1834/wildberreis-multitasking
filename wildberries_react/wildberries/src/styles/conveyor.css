@@ -156,3 +156,14 @@
     user-select: none;
     color: rgba(20, 84, 136, 0.49);
 }
+
+.clear_btn {
+    right: 1.5vw;
+    bottom: 1.5vw;
+    background-image: url(/src/assets/icons/wand.jpg);
+    /* background-size: cover; */
+    border-radius: 50%;
+    border: 5.5px solid rgb(0, 0, 0);
+    padding: 5.5px;
+    background-origin: content-box;
+}

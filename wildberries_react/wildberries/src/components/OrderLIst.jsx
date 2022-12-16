@@ -28,7 +28,7 @@ const OrderLIst = ({ orders, setOrders, setOrderDetails, setIsPopupVisible, ...p
     }
 
     const onSwipe = (orderId) => {
-        setOrderHistory([orders[0], ...orderHistory,])
+        setOrderHistory([{...orders[0], issuing_time: new Date()}, ...orderHistory,])
         setOrders(orders.slice(1))
         fetchOrderIssue(orderId)
         console.log('ON SWIPE TRIGGERED')

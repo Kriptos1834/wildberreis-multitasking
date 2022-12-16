@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DetailsPopup from "../components/DetailsPopup";
 import OrderLIst from "../components/OrderLIst";
 import { OrdersContext } from "../context";
+import { useFetching } from "../hooks/useFetching";
 
 import '../styles/conveyor.css'
 
@@ -11,6 +12,9 @@ function Conveyor() {
     const ordersContext = useContext(OrdersContext)
     const [isPopupVisible, setIsPopupVisible] = useState(false)
     const [orderDetails, setOrderDetails] = useState()
+    const [clearQueue, isClearLoading, error] = useFetching(async () => {
+
+    })
     let navigate = useNavigate()
 
 
@@ -26,7 +30,6 @@ function Conveyor() {
         }
         return ordersContext.orders.filter(order => order.cell === orderDetails)[0]['items']
     }, [orderDetails])
-
 
     return (
         <div className="Conveyor">
@@ -51,6 +54,11 @@ function Conveyor() {
             />
             <button className='history_btn btn' onClick={() => {
                 navigate('/history')
+            }}>
+            </button>
+            <button className='clear_btn btn' onClick={() => {
+                // clearQueue()
+                ordersContext.setOrders([])
             }}>
             </button>
         </div >
