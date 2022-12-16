@@ -1,5 +1,6 @@
 import { useMemo, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import OrderService from "../api/OrderService";
 import DetailsPopup from "../components/DetailsPopup";
 import OrderLIst from "../components/OrderLIst";
 import { OrdersContext } from "../context";
@@ -13,7 +14,7 @@ function Conveyor() {
     const [isPopupVisible, setIsPopupVisible] = useState(false)
     const [orderDetails, setOrderDetails] = useState()
     const [clearQueue, isClearLoading, error] = useFetching(async () => {
-
+        await OrderService.clear()
     })
     let navigate = useNavigate()
 
