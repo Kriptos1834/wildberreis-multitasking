@@ -25,7 +25,7 @@ SECRET_KEY = 'a&q+c@&$jnkg(e)qnc21a$2pf$&72)!81qw75)5-=0h%47kw8h'
 POSTGRES_PASSWORD = '15893587max'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = not False
+DEBUG = False
 
 if DEBUG:
     ALLOWED_HOSTS = ['*']
