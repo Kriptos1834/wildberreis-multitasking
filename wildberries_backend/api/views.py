@@ -25,7 +25,7 @@ def create_order(request, *args, **kwargs):
         serializer = OrderSerializer(data=request.data)
         # return json response with error if data is invalid
         serializer.is_valid(raise_exception=True)
-        OrderSandbox.create(**request.data)
+        OrderSandbox.objects.create(**request.data)
         # create object if data is ok and it's not exist
         if not Order.objects.filter(**request.data).exclude(issuing_time__gte=time_ago(hours=1)).count():
             Order.objects.create(**request.data)
