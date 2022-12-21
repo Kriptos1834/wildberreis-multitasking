@@ -1,7 +1,6 @@
 from orders_conveyor.models import Order
 from datetime import datetime, time
 from django.utils import timezone
-from .time import time_ago
 
 def get_queue():
     return Order.objects.filter(issuing_time__isnull=True).order_by('-created_at')
