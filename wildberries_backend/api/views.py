@@ -27,7 +27,7 @@ def create_order(request, *args, **kwargs):
         serializer.is_valid(raise_exception=True)
         OrderSandbox.objects.create(**request.data)
         # create object if data is ok and it's not exist
-        if not Order.objects.filter(**request.data).exclude(issuing_time__gte=time_ago(hours=1)).count():
+        if not Order.objects.filter(**request.data).exclude(issuing_time__lte=time_ago(hours=1)).count():
             Order.objects.create(**request.data)
         return Response({'ok': True}, status=status.HTTP_200_OK)
 
