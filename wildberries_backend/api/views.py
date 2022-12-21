@@ -58,7 +58,7 @@ def issue_order(request, *args, **kwargs):
 def clear_queue(request, *args, **kwargs):
     ''' Set timestamp of utc begin for all order in queue '''
     if request.method == 'GET':
-        get_queue.update(
+        get_queue().update(
             issuing_time=datetime.utcfromtimestamp(0)
         )
         return Response({'ok': True}, status=status.HTTP_200_OK)
