@@ -17,8 +17,7 @@ def ws_send(sender, instance, created, **kwargs):
     if not created:
         return
 
-    print(instance)
-    # WS_send_order(instance)
+    WS_send_order(instance)
 
 
 class OrderSandbox(models.Model):
