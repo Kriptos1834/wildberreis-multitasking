@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from django.conf import settings
-from orders_conveyor.models import Order
+from orders_conveyor.models import Order, OrderSandbox
 from datetime import timedelta
 
 import importlib.util
@@ -28,3 +28,7 @@ class Command(BaseCommand):
             outdated_orders.delete()
         
             sutils.cout('[+] Outdated orders has been successfully deleted.', __file__)
+        
+        sutils.cout('[+] Clearing sandbox', __file__)
+        OrderSandbox.objects.filter(created_at__lte=date).delete()
+        sutils.cout('[+] Sandbox cleared', __file__)

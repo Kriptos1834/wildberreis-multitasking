@@ -1,7 +1,6 @@
 from django.contrib import admin
-from orders_conveyor.models import Order, HistoryOrder, QueueOrder
+from orders_conveyor.models import Order, OrderSandbox
 
 # Register your models here.
 admin.site.register(Order)
-admin.site.register(HistoryOrder)
-admin.site.register(QueueOrder)
+admin.site.register(OrderSandbox)

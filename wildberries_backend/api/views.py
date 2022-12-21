@@ -1,4 +1,4 @@
-from orders_conveyor.models import Order, QueueOrder, HistoryOrder
+from orders_conveyor.models import Order, OrderSandbox
 from rest_framework.response import Response
 from rest_framework import status, generics
 from rest_framework.decorators import api_view, parser_classes
@@ -6,6 +6,8 @@ from .serializers import OrderSerializer
 from rest_framework.parsers import JSONParser, MultiPartParser
 from django.utils import timezone
 from datetime import datetime
+from .utils.orders import get_history, get_queue
+from .utils.time import time_ago
 
 
 @api_view(['GET'])
@@ -23,14 +25,10 @@ def create_order(request, *args, **kwargs):
         serializer = OrderSerializer(data=request.data)
         # return json response with error if data is invalid
         serializer.is_valid(raise_exception=True)
-
-        # create object if data is ok
-        Order.objects.create(
-            office_id=request.data['office_id'],
-            cell=request.data['cell'],
-            items=request.data['items'],
-        )
-
+        OrderSandbox.create(**request.data)
+        # create object if data is ok and it's not exist
+        if not Order.objects.filter(**request.data).exclude(issuing_time__gte=time_ago(hours=1)).count():
+            Order.objects.create(**request.data)
         return Response({'ok': True}, status=status.HTTP_200_OK)
 
 
@@ -60,17 +58,17 @@ def issue_order(request, *args, **kwargs):
 def clear_queue(request, *args, **kwargs):
     ''' Set timestamp of utc begin for all order in queue '''
     if request.method == 'GET':
-        Order.objects.filter(id__in=QueueOrder.objects.all().values_list('id', flat=True)).update(
+        get_queue.update(
             issuing_time=datetime.utcfromtimestamp(0)
         )
         return Response({'ok': True}, status=status.HTTP_200_OK)
 
 
 class OrderQueue(generics.ListAPIView):
-    queryset = QueueOrder.objects.all().order_by('-created_at')
+    queryset = get_queue()
     serializer_class = OrderSerializer
 
 
 class OrderHistory(generics.ListAPIView):
-    queryset = HistoryOrder.objects.all().order_by('-issuing_time')
+    queryset = get_history()
     serializer_class = OrderSerializer
