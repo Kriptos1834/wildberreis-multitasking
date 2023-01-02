@@ -1,3 +1,5 @@
+import logging
+
 from orders_conveyor.models import Order, OrderSandbox
 from rest_framework.response import Response
 from rest_framework import status, generics
@@ -8,6 +10,9 @@ from django.utils import timezone
 from datetime import datetime
 from .utils.orders import get_history, get_queue
 from .utils.time import time_ago
+
+
+logger = logging.getLogger(__name__)
 
 
 @api_view(['GET'])
@@ -29,6 +34,7 @@ def create_order(request, *args, **kwargs):
         # create object if data is ok and it's not exist
         if not Order.objects.filter(**request.data).exclude(issuing_time__lte=time_ago(hours=1)).count():
             Order.objects.create(**request.data)
+            logger.info(f'Order {request.data["cell"]} created.')
         return Response({'ok': True}, status=status.HTTP_200_OK)
 
 

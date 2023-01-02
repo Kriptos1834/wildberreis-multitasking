@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from .utils.ws_order import WS_send_order
 
 
+
 class Order(models.Model):
     office_id = models.IntegerField()
     cell = models.IntegerField()

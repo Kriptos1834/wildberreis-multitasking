@@ -25,7 +25,7 @@ SECRET_KEY = 'a&q+c@&$jnkg(e)qnc21a$2pf$&72)!81qw75)5-=0h%47kw8h'
 POSTGRES_PASSWORD = '15893587max'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = not False
 
 if DEBUG:
     ALLOWED_HOSTS = ['*']
@@ -60,8 +60,52 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'wildberries_backend.middleware.CORSMiddleware'
+    'middlewares.logging_middleware.ExceptionLoggingMiddleware'
 ]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'formatters': {
+        'standart': {
+            'format':  '{levelname} - {asctime} - {name} - {filename} - {message}',
+            'style': '{',
+        },
+        'error': {
+            'format': '{levelname} - {asctime} - {message}',
+            'style': '{'
+        }
+    },
+
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'standart'
+        },
+        'file': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'standart',
+            'filename': os.path.join(BASE_DIR, 'logs', 'log.log')
+        },
+        'error': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'error',
+            'level': 'ERROR',
+            'filename': os.path.join(BASE_DIR, 'logs', 'error.log')
+        }
+    },
+    'loggers': {
+        'api': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+        },
+        'error': {
+            'handlers': ['error'],
+            'level': 'ERROR',
+        },
+    }
+}
 
 ROOT_URLCONF = 'wildberries_backend.urls'
 
@@ -152,15 +196,16 @@ CHANNEL_LAYERS = {
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = []
-STATICFILES_DIRS.append(os.path.join(BASE_DIR, '../wildberries_react/wildberries/build/static'))
+STATICFILES_DIRS.append(os.path.join(
+    BASE_DIR, '../wildberries_react/wildberries/build/static'))
 
 
 # CORS settings
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
-  'http://localhost:8000',
-  'http://localhost:3000',
-  'https://npos.wildberries.ru',
-  'https://mkh-wb.ru',
-  'https://www.mkh-wb.ru'
+    'http://localhost:8000',
+    'http://localhost:3000',
+    'https://npos.wildberries.ru',
+    'https://mkh-wb.ru',
+    'https://www.mkh-wb.ru'
 )
